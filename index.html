@@ -1,0 +1,739 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>Invoice Generator - Dlingoscarves</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+    <style>
+      :root {
+        --navy-primary: #0a192f;
+        --navy-secondary: #172a45;
+        --accent-gold: #c5a059;
+        --grey-bg: #f4f6f8;
+        --text-color: #333333;
+        --white: #ffffff;
+        --danger: #c0392b;
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: "Lato", sans-serif;
+        background-color: var(--grey-bg);
+        color: var(--text-color);
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+      }
+
+      header {
+        background-color: var(--navy-primary);
+        color: white;
+        padding: 1rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+      }
+
+      header h1 {
+        font-family: "Playfair Display", serif;
+        font-size: 1.2rem;
+        letter-spacing: 1px;
+      }
+
+      .app-container {
+        display: flex;
+        flex: 1;
+        height: calc(100vh - 60px);
+        overflow: hidden;
+      }
+
+      .sidebar {
+        width: 350px;
+        background: white;
+        padding: 20px;
+        overflow-y: auto;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        border-right: 1px solid #ddd;
+        z-index: 10;
+      }
+
+      .section-title {
+        color: var(--navy-primary);
+        font-family: "Playfair Display", serif;
+        font-size: 1.1rem;
+        border-bottom: 2px solid var(--accent-gold);
+        padding-bottom: 5px;
+        margin-bottom: 5px;
+        margin-top: 10px;
+      }
+
+      .section-title:first-child {
+        margin-top: 0;
+      }
+
+      .form-group label {
+        display: block;
+        font-size: 0.8rem;
+        font-weight: bold;
+        color: var(--navy-secondary);
+        margin-bottom: 4px;
+      }
+
+      .form-group input,
+      .form-group textarea {
+        width: 100%;
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-family: "Lato", sans-serif;
+        font-size: 0.9rem;
+      }
+      .form-group textarea {
+        resize: vertical;
+        height: 50px;
+      }
+
+      .item-row {
+        display: grid;
+        grid-template-columns: 2fr 0.7fr 1fr auto;
+        gap: 5px;
+        margin-bottom: 8px;
+        align-items: center;
+      }
+
+      .btn {
+        padding: 10px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-weight: bold;
+        font-family: "Lato", sans-serif;
+        transition: 0.2s;
+        width: 100%;
+        text-align: center;
+      }
+
+      .btn-add {
+        background-color: #eee;
+        color: var(--navy-primary);
+        font-size: 0.9rem;
+        padding: 8px;
+      }
+      .btn-remove {
+        background-color: #ffebee;
+        color: var(--danger);
+        padding: 6px;
+        width: auto;
+        font-size: 0.8rem;
+      }
+
+      .btn-print {
+        background-color: var(--navy-primary);
+        color: white;
+        margin-top: 15px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 8px;
+        padding: 12px;
+      }
+
+      .btn-print.lunas {
+        background-color: var(--accent-gold);
+        color: var(--navy-primary);
+      }
+
+      .preview-area {
+        flex: 1;
+        background-color: #525659;
+        display: flex;
+        justify-content: center;
+        overflow: auto;
+        padding: 20px;
+      }
+
+      .invoice-paper {
+        background: white;
+        width: 210mm;
+        min-height: 297mm;
+        padding: 15mm;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+        position: relative;
+        color: #333;
+        transform-origin: top center;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .inv-header {
+        border-bottom: 3px solid #f5f5dc;
+        padding-bottom: 15px;
+        margin-bottom: 25px;
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+
+      .inv-brand {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+      }
+
+      .inv-brand img {
+        max-height: 60px;
+        width: auto;
+        object-fit: contain;
+      }
+
+      .inv-brand h2 {
+        font-family: "Playfair Display", serif;
+        font-size: 1.8rem;
+        color: var(--navy-primary);
+        margin-bottom: 5px;
+      }
+
+      .inv-brand p {
+        color: #666;
+        font-size: 0.85rem;
+        line-height: 1.4;
+      }
+
+      .inv-title {
+        font-size: 1.5rem;
+        font-weight: bold;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        color: var(--navy-primary);
+      }
+
+      .inv-details {
+        font-size: 0.9rem;
+        margin-top: 5px;
+        color: #444;
+      }
+
+      .inv-to {
+        margin-bottom: 25px;
+      }
+      .inv-to h4 {
+        color: var(--navy-primary);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        font-size: 0.85rem;
+        margin-bottom: 5px;
+        border-bottom: 1px solid #f5f5dc;
+        display: inline-block;
+      }
+
+      .inv-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 25px;
+      }
+
+      .inv-table th {
+        text-align: left;
+        background-color: #f5f5dc;
+        color: rgb(3, 0, 0);
+        padding: 10px;
+        text-transform: uppercase;
+        font-size: 0.75rem;
+      }
+
+      .inv-table td {
+        padding: 10px;
+        border-bottom: 1px solid #eee;
+        font-size: 0.9rem;
+      }
+
+      .text-right {
+        text-align: right;
+      }
+
+      .inv-summary {
+        display: flex;
+        justify-content: flex-end;
+        margin-bottom: 20px;
+      }
+
+      .summary-box {
+        width: 220px;
+      }
+      .summary-row {
+        display: flex;
+        justify-content: space-between;
+        padding: 5px 0;
+        border-bottom: 1px solid #f5f5dc;
+        font-size: 0.9rem;
+      }
+      .summary-row.total {
+        border-top: 2px solid var(--navy-primary);
+        border-bottom: none;
+        font-weight: bold;
+        font-size: 1.1rem;
+        color: var(--navy-primary);
+        padding-top: 10px;
+        font-family: "Playfair Display", serif;
+      }
+
+      .inv-payment-info {
+        background-color: #f9f9f9;
+        border: 1px solid #f5f5dc;
+        padding: 15px;
+        border-radius: 5px;
+        margin-top: auto;
+        margin-bottom: 20px;
+      }
+      .inv-payment-info h4 {
+        color: var(--navy-primary);
+        margin-bottom: 10px;
+        font-size: 0.9rem;
+        text-transform: uppercase;
+      }
+      .bank-details {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+      }
+
+      /* Styling untuk Logo Bank */
+      .bank-logo-img {
+        max-height: 40px; /* Ukuran logo bank */
+        width: auto;
+        object-fit: contain;
+        display: none; /* Default hidden, ditampilkan JS jika ada */
+      }
+
+      /* Fallback teks jika logo tidak ditemukan */
+      .bank-logo-text {
+        font-weight: bold;
+        font-size: 1.2rem;
+        color: var(--navy-secondary);
+        border: 1px solid #ddd;
+        padding: 5px 10px;
+        border-radius: 4px;
+        background-color: #fff;
+        display: none; /* Default hidden */
+      }
+
+      .bank-account span {
+        display: block;
+        font-size: 0.95rem;
+        color: #000000;
+      }
+      .bank-account strong {
+        font-size: 1.1rem;
+        letter-spacing: 1px;
+      }
+
+      .inv-footer {
+        margin-top: auto;
+        border-top: 1px solid #eee;
+        padding-top: 15px;
+        text-align: center;
+        color: #888;
+        font-size: 0.8rem;
+      }
+
+      .stamp-container {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) rotate(-15deg);
+        z-index: 100;
+        display: none;
+        width: 180px;
+        height: 80px;
+        border: 4px solid var(--danger);
+        border-radius: 10px;
+        align-items: center;
+        justify-content: center;
+        opacity: 0.85;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+        background-color: rgba(255, 255, 255, 0.1);
+        mix-blend-mode: multiply;
+      }
+
+      .stamp-text {
+        font-family: "Playfair Display", serif;
+        font-size: 2.5rem;
+        font-weight: 900;
+        color: var(--danger);
+        text-transform: uppercase;
+        letter-spacing: 3px;
+        line-height: 1;
+        white-space: nowrap;
+      }
+
+      @media (max-width: 900px) {
+        .app-container {
+          flex-direction: column;
+          height: auto;
+          overflow: visible;
+        }
+
+        .sidebar {
+          width: 100%;
+          border-right: none;
+          border-bottom: 1px solid #ddd;
+          max-height: none;
+        }
+
+        .preview-area {
+          padding: 10px;
+          min-height: 500px;
+        }
+
+        .invoice-paper {
+          width: 100%;
+          min-width: 300px;
+          font-size: 0.9rem;
+          padding: 10mm;
+        }
+      }
+
+      @media print {
+        @page {
+          size: A4 portrait;
+          margin: 0;
+        }
+
+        body {
+          background: white;
+          -webkit-print-color-adjust: exact;
+          print-color-adjust: exact;
+          overflow: hidden;
+        }
+
+        .sidebar,
+        header {
+          display: none !important;
+        }
+
+        .app-container {
+          display: block;
+          height: auto;
+        }
+
+        .preview-area {
+          padding: 0;
+          background: white;
+          display: block;
+          width: 100%;
+          height: 100%;
+          overflow: visible;
+        }
+
+        .invoice-paper {
+          box-shadow: none;
+          width: 100%;
+          margin: 0;
+          padding: 20mm;
+          position: relative;
+          font-size: 12pt;
+          min-height: 297mm;
+        }
+
+        .stamp-container.show {
+          display: flex !important;
+          top: 50% !important;
+          left: 50% !important;
+          transform: translate(-50%, -50%) rotate(-15deg) !important;
+        }
+
+        th,
+        .inv-payment-info {
+          -webkit-print-color-adjust: exact;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1><i class="fas fa-feather-alt"></i> Dlingoscarves</h1>
+    </header>
+
+    <div class="app-container">
+      <aside class="sidebar">
+        <div class="section-title">Detail Transaksi</div>
+
+        <div class="form-group">
+          <label>No. Invoice</label>
+          <input type="text" id="invNo" value="INV-2023-001" />
+        </div>
+
+        <div class="form-group">
+          <label>Tanggal</label>
+          <input type="date" id="invDate" />
+        </div>
+
+        <div class="form-group">
+          <label>Nama Pelanggan</label>
+          <input type="text" id="custName" value="Ibu Siti" />
+        </div>
+
+        <div class="form-group">
+          <label>Alamat</label>
+          <textarea id="custAddr">Kalisari No.67A, Jakarta Timur</textarea>
+        </div>
+
+        <div class="section-title">Daftar Produk</div>
+        <div id="itemsList"></div>
+        <button class="btn btn-add" onclick="addItem()"><i class="fas fa-plus"></i> Tambah Produk</button>
+
+        <div class="section-title">Info Pembayaran</div>
+        <div class="form-group">
+          <label>Nama Bank</label>
+          <input type="text" id="bankName" value="Bank Neo Commerce" />
+        </div>
+        <div class="form-group">
+          <label>No. Rekening</label>
+          <input type="text" id="bankAcc" value="1234567890" />
+        </div>
+        <div class="form-group">
+          <label>Atas Nama</label>
+          <input type="text" id="bankHolder" value="Dlingoscarves" />
+        </div>
+
+        <div style="margin-top: auto; display: flex; flex-direction: column; gap: 10px">
+          <button class="btn btn-print" onclick="printInvoice(false)"><i class="fas fa-print"></i> Cetak Tagihan</button>
+          <button class="btn btn-print lunas" onclick="printInvoice(true)"><i class="fas fa-check-circle"></i> Cetak Sudah Lunas</button>
+        </div>
+      </aside>
+
+      <main class="preview-area">
+        <div class="invoice-paper">
+          <div id="stampContainer" class="stamp-container">
+            <div class="stamp-text">LUNAS</div>
+          </div>
+
+          <div class="inv-header">
+            <div class="inv-brand">
+              <!-- LOGO TOKO -->
+              <img src="img/Logo dlingo warna.png" alt="Logo Dlingoscarves" />
+
+              <div class="brand-text">
+                <h2>Dlingoscarves</h2>
+                <p>Be a modest lovely muslim</p>
+                <p>Pasar Rebo Jakarta Timur</p>
+                <p>WA: 0812-1868-3502</p>
+              </div>
+            </div>
+            <div class="inv-meta">
+              <div class="inv-title">INVOICE</div>
+              <div class="inv-details">
+                No: <span id="prevNo">INV-000</span><br />
+                Tgl: <span id="prevDate">-</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="inv-to">
+            <h4>Kepada Yth:</h4>
+            <div style="margin-top: 5px">
+              <strong id="prevName">Ibu Siti</strong><br />
+              <span id="prevAddr">Jl. Mawar No. 12, Jakarta Selatan</span>
+            </div>
+          </div>
+
+          <table class="inv-table">
+            <thead>
+              <tr>
+                <th style="width: 50%">Deskripsi Produk</th>
+                <th class="text-right" style="width: 15%">Qty</th>
+                <th class="text-right" style="width: 35%">Total Harga</th>
+              </tr>
+            </thead>
+            <tbody id="prevBody"></tbody>
+          </table>
+
+          <div class="inv-summary">
+            <div class="summary-box">
+              <div class="summary-row">
+                <span>Total Tagihan</span>
+                <span id="prevTotal">Rp 0</span>
+              </div>
+              <div class="summary-row total">
+                <span>JUMLAH</span>
+                <span id="prevGrandTotal">Rp 0</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="inv-payment-info">
+            <h4><i class="fas fa-university"></i> Pembayaran Dapat Ditransfer Ke:</h4>
+            <div class="bank-details">
+              <!-- LOGO BANK -->
+              <img id="prevBankLogoImg" class="bank-logo-img" src="" alt="Logo Bank" />
+              <div id="prevBankLogoText" class="bank-logo-text">BANK</div>
+
+              <div class="bank-account">
+                <span id="prevBankHolder">a.n Dlingoscarves</span>
+                <strong id="prevBankAcc">1234567890</strong>
+              </div>
+            </div>
+          </div>
+
+          <div class="inv-footer">
+            <p>Terima kasih telah berbelanja di Dlingoscarves.</p>
+            <p>Barang yang sudah dibeli tidak dapat ditukar.</p>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <script>
+      let items = [
+        { name: "Pashmina Ceruty Baby Doll", qty: 2, price: 35000 },
+        { name: "Hijab Segi Empat Voal Premium", qty: 1, price: 55000 },
+      ];
+
+      // Database Logo Bank
+      // Saya menambahkan link logo Bank Neo Commerce (BNC) yang Anda berikan
+      const bankLogos = {
+        bca: "https://upload.wikimedia.org/wikipedia/commons/5/5c/Bank_Central_Asia.svg",
+        mandiri: "https://upload.wikimedia.org/wikipedia/commons/a/ad/Bank_Mandiri_logo_2016.svg",
+        bri: "https://upload.wikimedia.org/wikipedia/commons/6/68/BANK_BRI_logo.svg",
+        bni: "https://upload.wikimedia.org/wikipedia/id/5/55/BNI_logo.svg",
+        bsi: "https://upload.wikimedia.org/wikipedia/commons/1/14/Bank_Syariah_Indonesia.svg",
+
+        // Logo Bank Neo Commerce (BNC)
+        neo: "https://z-cdn-media.chatglm.cn/files/460f2f75-84e1-4eeb-a849-e2c310b2ab6b.jpeg?auth_key=1872371792-7d9432efde754368b24b6b8d69da80c1-0-a757889897e6bddfc9098cf555b58419",
+        bnc: "https://z-cdn-media.chatglm.cn/files/460f2f75-84e1-4eeb-a849-e2c310b2ab6b.jpeg?auth_key=1872371792-7d9432efde754368b24b6b8d69da80c1-0-a757889897e6bddfc9098cf555b58419",
+      };
+
+      document.getElementById("invDate").valueAsDate = new Date();
+
+      function renderItems() {
+        const container = document.getElementById("itemsList");
+        container.innerHTML = "";
+
+        items.forEach((item, index) => {
+          const div = document.createElement("div");
+          div.className = "item-row";
+          div.innerHTML = `
+                    <input type="text" placeholder="Nama Produk" value="${item.name}" oninput="updateItem(${index}, 'name', this.value)">
+                    <input type="number" placeholder="Qty" value="${item.qty}" min="1" oninput="updateItem(${index}, 'qty', this.value)">
+                    <input type="number" placeholder="Harga" value="${item.price}" min="0" oninput="updateItem(${index}, 'price', this.value)">
+                    <button class="btn btn-remove" onclick="deleteItem(${index})"><i class="fas fa-trash"></i></button>
+                `;
+          container.appendChild(div);
+        });
+        updatePreview();
+      }
+
+      function updateItem(index, field, value) {
+        if (field === "qty" || field === "price") {
+          items[index][field] = parseInt(value) || 0;
+        } else {
+          items[index][field] = value;
+        }
+        updatePreview();
+      }
+
+      function addItem() {
+        items.push({ name: "", qty: 1, price: 0 });
+        renderItems();
+      }
+
+      function deleteItem(index) {
+        items.splice(index, 1);
+        renderItems();
+      }
+
+      function updatePreview() {
+        const dateVal = document.getElementById("invDate").value;
+        document.getElementById("prevDate").innerText = dateVal ? new Date(dateVal).toLocaleDateString("id-ID") : "-";
+        document.getElementById("prevNo").innerText = document.getElementById("invNo").value;
+        document.getElementById("prevName").innerText = document.getElementById("custName").value;
+        document.getElementById("prevAddr").innerText = document.getElementById("custAddr").value;
+
+        // --- Logika Logo Bank Otomatis ---
+        const bankNameInput = document.getElementById("bankName").value.toLowerCase();
+        const bankLogoImg = document.getElementById("prevBankLogoImg");
+        const bankLogoText = document.getElementById("prevBankLogoText");
+
+        let logoFound = false;
+
+        // Cek apakah input mengandung kata kunci bank
+        for (const key in bankLogos) {
+          if (bankNameInput.includes(key)) {
+            bankLogoImg.src = bankLogos[key];
+            bankLogoImg.style.display = "block";
+            bankLogoText.style.display = "none";
+            logoFound = true;
+            break;
+          }
+        }
+
+        // Jika tidak ada logo, tampilkan teks singkatan
+        if (!logoFound) {
+          bankLogoImg.style.display = "none";
+          bankLogoText.style.display = "block";
+          const bankNameVal = document.getElementById("bankName").value;
+          bankLogoText.innerText = bankNameVal.replace("Bank ", "").substring(0, 3).toUpperCase();
+        }
+
+        // Update Info Rekening
+        document.getElementById("prevBankAcc").innerText = document.getElementById("bankAcc").value;
+        document.getElementById("prevBankHolder").innerText = "a.n " + document.getElementById("bankHolder").value;
+
+        const tbody = document.getElementById("prevBody");
+        tbody.innerHTML = "";
+        let total = 0;
+
+        items.forEach((item) => {
+          const subtotal = item.qty * item.price;
+          total += subtotal;
+          const tr = document.createElement("tr");
+          tr.innerHTML = `
+                    <td>${item.name}</td>
+                    <td class="text-right">${item.qty}</td>
+                    <td class="text-right">${formatRupiah(subtotal)}</td>
+                `;
+          tbody.appendChild(tr);
+        });
+
+        const formattedTotal = formatRupiah(total);
+        document.getElementById("prevTotal").innerText = formattedTotal;
+        document.getElementById("prevGrandTotal").innerText = formattedTotal;
+      }
+
+      function formatRupiah(number) {
+        return new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR", minimumFractionDigits: 0 }).format(number);
+      }
+
+      function printInvoice(isLunas) {
+        const stamp = document.getElementById("stampContainer");
+
+        if (isLunas === true) {
+          stamp.classList.add("show");
+        } else {
+          stamp.classList.remove("show");
+        }
+
+        setTimeout(() => window.print(), 100);
+      }
+
+      document.querySelectorAll("input, textarea").forEach((el) => el.addEventListener("input", updatePreview));
+      renderItems();
+    </script>
+  </body>
+</html>
