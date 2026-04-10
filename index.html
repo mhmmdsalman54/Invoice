@@ -19,11 +19,7 @@
         --danger: #c0392b;
       }
 
-      * {
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
-      }
+      * { box-sizing: border-box; margin: 0; padding: 0; }
 
       body {
         font-family: "Lato", sans-serif;
@@ -41,7 +37,7 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         position: sticky;
         top: 0;
         z-index: 1000;
@@ -82,9 +78,7 @@
         margin-top: 10px;
       }
 
-      .section-title:first-child {
-        margin-top: 0;
-      }
+      .section-title:first-child { margin-top: 0; }
 
       .form-group label {
         display: block;
@@ -103,10 +97,8 @@
         font-family: "Lato", sans-serif;
         font-size: 0.9rem;
       }
-      .form-group textarea {
-        resize: vertical;
-        height: 50px;
-      }
+
+      .form-group textarea { resize: vertical; height: 50px; }
 
       .item-row {
         display: grid;
@@ -128,19 +120,8 @@
         text-align: center;
       }
 
-      .btn-add {
-        background-color: #eee;
-        color: var(--navy-primary);
-        font-size: 0.9rem;
-        padding: 8px;
-      }
-      .btn-remove {
-        background-color: #ffebee;
-        color: var(--danger);
-        padding: 6px;
-        width: auto;
-        font-size: 0.8rem;
-      }
+      .btn-add { background-color: #eee; color: var(--navy-primary); font-size: 0.9rem; padding: 8px; }
+      .btn-remove { background-color: #ffebee; color: var(--danger); padding: 6px; width: auto; font-size: 0.8rem; }
 
       .btn-print {
         background-color: var(--navy-primary);
@@ -153,10 +134,7 @@
         padding: 12px;
       }
 
-      .btn-print.lunas {
-        background-color: var(--accent-gold);
-        color: var(--navy-primary);
-      }
+      .btn-print.lunas { background-color: var(--accent-gold); color: var(--navy-primary); }
 
       .preview-area {
         flex: 1;
@@ -172,7 +150,7 @@
         width: 210mm;
         min-height: 297mm;
         padding: 15mm;
-        box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+        box-shadow: 0 0 15px rgba(0,0,0,0.3);
         position: relative;
         color: #333;
         transform-origin: top center;
@@ -190,278 +168,74 @@
         gap: 10px;
       }
 
-      .inv-brand {
-        display: flex;
-        align-items: center;
-        gap: 15px;
-      }
+      .inv-brand { display: flex; align-items: center; gap: 15px; }
+      .inv-brand img { max-height: 60px; width: auto; object-fit: contain; }
+      .inv-brand h2 { font-family: "Playfair Display", serif; font-size: 1.8rem; color: var(--navy-primary); margin-bottom: 5px; }
+      .inv-brand p { color: #666; font-size: 0.85rem; line-height: 1.4; }
 
-      .inv-brand img {
-        max-height: 60px;
-        width: auto;
-        object-fit: contain;
-      }
+      .inv-title { font-size: 1.5rem; font-weight: bold; text-transform: uppercase; letter-spacing: 2px; color: var(--navy-primary); }
+      .inv-details { font-size: 0.9rem; margin-top: 5px; color: #444; }
 
-      .inv-brand h2 {
-        font-family: "Playfair Display", serif;
-        font-size: 1.8rem;
-        color: var(--navy-primary);
-        margin-bottom: 5px;
-      }
+      .inv-to { margin-bottom: 25px; }
+      .inv-to h4 { color: var(--navy-primary); text-transform: uppercase; letter-spacing: 1px; font-size: 0.85rem; margin-bottom: 5px; border-bottom: 1px solid #f5f5dc; display: inline-block; }
 
-      .inv-brand p {
-        color: #666;
-        font-size: 0.85rem;
-        line-height: 1.4;
-      }
+      .inv-table { width: 100%; border-collapse: collapse; margin-bottom: 25px; }
+      .inv-table th { text-align: left; background-color: #f5f5dc; color: rgb(3,0,0); padding: 10px; text-transform: uppercase; font-size: 0.75rem; }
+      .inv-table td { padding: 10px; border-bottom: 1px solid #eee; font-size: 0.9rem; }
+      .text-right { text-align: right; }
 
-      .inv-title {
-        font-size: 1.5rem;
-        font-weight: bold;
-        text-transform: uppercase;
-        letter-spacing: 2px;
-        color: var(--navy-primary);
-      }
+      .inv-summary { display: flex; justify-content: flex-end; margin-bottom: 20px; }
+      .summary-box { width: 220px; }
+      .summary-row { display: flex; justify-content: space-between; padding: 5px 0; border-bottom: 1px solid #f5f5dc; font-size: 0.9rem; }
+      .summary-row.total { border-top: 2px solid var(--navy-primary); border-bottom: none; font-weight: bold; font-size: 1.1rem; color: var(--navy-primary); padding-top: 10px; font-family: "Playfair Display", serif; }
 
-      .inv-details {
-        font-size: 0.9rem;
-        margin-top: 5px;
-        color: #444;
-      }
+      .inv-payment-info { background-color: #f9f9f9; border: 1px solid #f5f5dc; padding: 15px; border-radius: 5px; margin-top: auto; margin-bottom: 20px; }
+      .inv-payment-info h4 { color: var(--navy-primary); margin-bottom: 10px; font-size: 0.9rem; text-transform: uppercase; }
+      .bank-details { display: flex; align-items: center; gap: 15px; }
 
-      .inv-to {
-        margin-bottom: 25px;
-      }
-      .inv-to h4 {
-        color: var(--navy-primary);
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        font-size: 0.85rem;
-        margin-bottom: 5px;
-        border-bottom: 1px solid #f5f5dc;
-        display: inline-block;
-      }
+      .bank-logo-img { max-height: 40px; width: auto; object-fit: contain; display: none; }
+      .bank-logo-text { font-weight: bold; font-size: 1.2rem; color: var(--navy-secondary); border: 1px solid #ddd; padding: 5px 10px; border-radius: 4px; background-color: #fff; display: none; }
 
-      .inv-table {
-        width: 100%;
-        border-collapse: collapse;
-        margin-bottom: 25px;
-      }
+      .bank-account span { display: block; font-size: 0.95rem; color: #000000; }
+      .bank-account strong { font-size: 1.1rem; letter-spacing: 1px; }
 
-      .inv-table th {
-        text-align: left;
-        background-color: #f5f5dc;
-        color: rgb(3, 0, 0);
-        padding: 10px;
-        text-transform: uppercase;
-        font-size: 0.75rem;
-      }
-
-      .inv-table td {
-        padding: 10px;
-        border-bottom: 1px solid #eee;
-        font-size: 0.9rem;
-      }
-
-      .text-right {
-        text-align: right;
-      }
-
-      .inv-summary {
-        display: flex;
-        justify-content: flex-end;
-        margin-bottom: 20px;
-      }
-
-      .summary-box {
-        width: 220px;
-      }
-      .summary-row {
-        display: flex;
-        justify-content: space-between;
-        padding: 5px 0;
-        border-bottom: 1px solid #f5f5dc;
-        font-size: 0.9rem;
-      }
-      .summary-row.total {
-        border-top: 2px solid var(--navy-primary);
-        border-bottom: none;
-        font-weight: bold;
-        font-size: 1.1rem;
-        color: var(--navy-primary);
-        padding-top: 10px;
-        font-family: "Playfair Display", serif;
-      }
-
-      .inv-payment-info {
-        background-color: #f9f9f9;
-        border: 1px solid #f5f5dc;
-        padding: 15px;
-        border-radius: 5px;
-        margin-top: auto;
-        margin-bottom: 20px;
-      }
-      .inv-payment-info h4 {
-        color: var(--navy-primary);
-        margin-bottom: 10px;
-        font-size: 0.9rem;
-        text-transform: uppercase;
-      }
-      .bank-details {
-        display: flex;
-        align-items: center;
-        gap: 15px;
-      }
-
-      /* Styling untuk Logo Bank */
-      .bank-logo-img {
-        max-height: 40px; /* Ukuran logo bank */
-        width: auto;
-        object-fit: contain;
-        display: none; /* Default hidden, ditampilkan JS jika ada */
-      }
-
-      /* Fallback teks jika logo tidak ditemukan */
-      .bank-logo-text {
-        font-weight: bold;
-        font-size: 1.2rem;
-        color: var(--navy-secondary);
-        border: 1px solid #ddd;
-        padding: 5px 10px;
-        border-radius: 4px;
-        background-color: #fff;
-        display: none; /* Default hidden */
-      }
-
-      .bank-account span {
-        display: block;
-        font-size: 0.95rem;
-        color: #000000;
-      }
-      .bank-account strong {
-        font-size: 1.1rem;
-        letter-spacing: 1px;
-      }
-
-      .inv-footer {
-        margin-top: auto;
-        border-top: 1px solid #eee;
-        padding-top: 15px;
-        text-align: center;
-        color: #888;
-        font-size: 0.8rem;
-      }
+      .inv-footer { margin-top: auto; border-top: 1px solid #eee; padding-top: 15px; text-align: center; color: #888; font-size: 0.8rem; }
 
       .stamp-container {
         position: absolute;
-        top: 50%;
-        left: 50%;
+        top: 50%; left: 50%;
         transform: translate(-50%, -50%) rotate(-15deg);
         z-index: 100;
         display: none;
-        width: 180px;
-        height: 80px;
+        width: 180px; height: 80px;
         border: 4px solid var(--danger);
         border-radius: 10px;
         align-items: center;
         justify-content: center;
         opacity: 0.85;
-        box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
-        background-color: rgba(255, 255, 255, 0.1);
+        box-shadow: 0 0 5px rgba(0,0,0,0.2);
+        background-color: rgba(255,255,255,0.1);
         mix-blend-mode: multiply;
       }
 
-      .stamp-text {
-        font-family: "Playfair Display", serif;
-        font-size: 2.5rem;
-        font-weight: 900;
-        color: var(--danger);
-        text-transform: uppercase;
-        letter-spacing: 3px;
-        line-height: 1;
-        white-space: nowrap;
-      }
+      .stamp-text { font-family: "Playfair Display", serif; font-size: 2.5rem; font-weight: 900; color: var(--danger); text-transform: uppercase; letter-spacing: 3px; line-height: 1; white-space: nowrap; }
 
       @media (max-width: 900px) {
-        .app-container {
-          flex-direction: column;
-          height: auto;
-          overflow: visible;
-        }
-
-        .sidebar {
-          width: 100%;
-          border-right: none;
-          border-bottom: 1px solid #ddd;
-          max-height: none;
-        }
-
-        .preview-area {
-          padding: 10px;
-          min-height: 500px;
-        }
-
-        .invoice-paper {
-          width: 100%;
-          min-width: 300px;
-          font-size: 0.9rem;
-          padding: 10mm;
-        }
+        .app-container { flex-direction: column; height: auto; overflow: visible; }
+        .sidebar { width: 100%; border-right: none; border-bottom: 1px solid #ddd; max-height: none; }
+        .preview-area { padding: 10px; min-height: 500px; }
+        .invoice-paper { width: 100%; min-width: 300px; font-size: 0.9rem; padding: 10mm; }
       }
 
       @media print {
-        @page {
-          size: A4 portrait;
-          margin: 0;
-        }
-
-        body {
-          background: white;
-          -webkit-print-color-adjust: exact;
-          print-color-adjust: exact;
-          overflow: hidden;
-        }
-
-        .sidebar,
-        header {
-          display: none !important;
-        }
-
-        .app-container {
-          display: block;
-          height: auto;
-        }
-
-        .preview-area {
-          padding: 0;
-          background: white;
-          display: block;
-          width: 100%;
-          height: 100%;
-          overflow: visible;
-        }
-
-        .invoice-paper {
-          box-shadow: none;
-          width: 100%;
-          margin: 0;
-          padding: 20mm;
-          position: relative;
-          font-size: 12pt;
-          min-height: 297mm;
-        }
-
-        .stamp-container.show {
-          display: flex !important;
-          top: 50% !important;
-          left: 50% !important;
-          transform: translate(-50%, -50%) rotate(-15deg) !important;
-        }
-
-        th,
-        .inv-payment-info {
-          -webkit-print-color-adjust: exact;
-        }
+        @page { size: A4 portrait; margin: 0; }
+        body { background: white; -webkit-print-color-adjust: exact; print-color-adjust: exact; overflow: hidden; }
+        .sidebar, header { display: none !important; }
+        .app-container { display: block; height: auto; }
+        .preview-area { padding: 0; background: white; display: block; width: 100%; height: 100%; overflow: visible; }
+        .invoice-paper { box-shadow: none; width: 100%; margin: 0; padding: 20mm; position: relative; font-size: 12pt; min-height: 297mm; }
+        .stamp-container.show { display: flex !important; top: 50% !important; left: 50% !important; transform: translate(-50%, -50%) rotate(-15deg) !important; }
+        th, .inv-payment-info { -webkit-print-color-adjust: exact; }
       }
     </style>
   </head>
@@ -505,7 +279,8 @@
         </div>
         <div class="form-group">
           <label>No. Rekening</label>
-          <input type="text" id="bankAcc" value="1234567890" />
+          <!-- ✅ NOMOR REKENING SUDAH DITETAPKAN DEFAULT -->
+          <input type="text" id="bankAcc" value="9010008483940599985" />
         </div>
         <div class="form-group">
           <label>Atas Nama</label>
@@ -528,7 +303,6 @@
             <div class="inv-brand">
               <!-- LOGO TOKO -->
               <img src="img/Logo dlingo warna.png" alt="Logo Dlingoscarves" />
-
               <div class="brand-text">
                 <h2>Dlingoscarves</h2>
                 <p>Be a modest lovely muslim</p>
@@ -583,10 +357,10 @@
               <!-- LOGO BANK -->
               <img id="prevBankLogoImg" class="bank-logo-img" src="" alt="Logo Bank" />
               <div id="prevBankLogoText" class="bank-logo-text">BANK</div>
-
               <div class="bank-account">
                 <span id="prevBankHolder">a.n Dlingoscarves</span>
-                <strong id="prevBankAcc">1234567890</strong>
+                <!-- ✅ NOMOR REKENING DEFAULT DI PREVIEW -->
+                <strong id="prevBankAcc">9010008483940599985</strong>
               </div>
             </div>
           </div>
@@ -606,15 +380,12 @@
       ];
 
       // Database Logo Bank
-      // Saya menambahkan link logo Bank Neo Commerce (BNC) yang Anda berikan
       const bankLogos = {
         bca: "https://upload.wikimedia.org/wikipedia/commons/5/5c/Bank_Central_Asia.svg",
         mandiri: "https://upload.wikimedia.org/wikipedia/commons/a/ad/Bank_Mandiri_logo_2016.svg",
         bri: "https://upload.wikimedia.org/wikipedia/commons/6/68/BANK_BRI_logo.svg",
         bni: "https://upload.wikimedia.org/wikipedia/id/5/55/BNI_logo.svg",
         bsi: "https://upload.wikimedia.org/wikipedia/commons/1/14/Bank_Syariah_Indonesia.svg",
-
-        // Logo Bank Neo Commerce (BNC)
         neo: "https://z-cdn-media.chatglm.cn/files/460f2f75-84e1-4eeb-a849-e2c310b2ab6b.jpeg?auth_key=1872371792-7d9432efde754368b24b6b8d69da80c1-0-a757889897e6bddfc9098cf555b58419",
         bnc: "https://z-cdn-media.chatglm.cn/files/460f2f75-84e1-4eeb-a849-e2c310b2ab6b.jpeg?auth_key=1872371792-7d9432efde754368b24b6b8d69da80c1-0-a757889897e6bddfc9098cf555b58419",
       };
@@ -624,16 +395,15 @@
       function renderItems() {
         const container = document.getElementById("itemsList");
         container.innerHTML = "";
-
         items.forEach((item, index) => {
           const div = document.createElement("div");
           div.className = "item-row";
           div.innerHTML = `
-                    <input type="text" placeholder="Nama Produk" value="${item.name}" oninput="updateItem(${index}, 'name', this.value)">
-                    <input type="number" placeholder="Qty" value="${item.qty}" min="1" oninput="updateItem(${index}, 'qty', this.value)">
-                    <input type="number" placeholder="Harga" value="${item.price}" min="0" oninput="updateItem(${index}, 'price', this.value)">
-                    <button class="btn btn-remove" onclick="deleteItem(${index})"><i class="fas fa-trash"></i></button>
-                `;
+            <input type="text" placeholder="Nama Produk" value="${item.name}" oninput="updateItem(${index}, 'name', this.value)">
+            <input type="number" placeholder="Qty" value="${item.qty}" min="1" oninput="updateItem(${index}, 'qty', this.value)">
+            <input type="number" placeholder="Harga" value="${item.price}" min="0" oninput="updateItem(${index}, 'price', this.value)">
+            <button class="btn btn-remove" onclick="deleteItem(${index})"><i class="fas fa-trash"></i></button>
+          `;
           container.appendChild(div);
         });
         updatePreview();
@@ -665,14 +435,11 @@
         document.getElementById("prevName").innerText = document.getElementById("custName").value;
         document.getElementById("prevAddr").innerText = document.getElementById("custAddr").value;
 
-        // --- Logika Logo Bank Otomatis ---
         const bankNameInput = document.getElementById("bankName").value.toLowerCase();
         const bankLogoImg = document.getElementById("prevBankLogoImg");
         const bankLogoText = document.getElementById("prevBankLogoText");
 
         let logoFound = false;
-
-        // Cek apakah input mengandung kata kunci bank
         for (const key in bankLogos) {
           if (bankNameInput.includes(key)) {
             bankLogoImg.src = bankLogos[key];
@@ -683,15 +450,13 @@
           }
         }
 
-        // Jika tidak ada logo, tampilkan teks singkatan
         if (!logoFound) {
           bankLogoImg.style.display = "none";
           bankLogoText.style.display = "block";
           const bankNameVal = document.getElementById("bankName").value;
-          bankLogoText.innerText = bankNameVal.replace("Bank ", "").substring(0, 3).toUpperCase();
+          bankLogoText.innerText = bankNameVal.replace("Bank ", "neo").substring(0, 3).toUpperCase();
         }
 
-        // Update Info Rekening
         document.getElementById("prevBankAcc").innerText = document.getElementById("bankAcc").value;
         document.getElementById("prevBankHolder").innerText = "a.n " + document.getElementById("bankHolder").value;
 
@@ -704,10 +469,10 @@
           total += subtotal;
           const tr = document.createElement("tr");
           tr.innerHTML = `
-                    <td>${item.name}</td>
-                    <td class="text-right">${item.qty}</td>
-                    <td class="text-right">${formatRupiah(subtotal)}</td>
-                `;
+            <td>${item.name}</td>
+            <td class="text-right">${item.qty}</td>
+            <td class="text-right">${formatRupiah(subtotal)}</td>
+          `;
           tbody.appendChild(tr);
         });
 
@@ -722,13 +487,11 @@
 
       function printInvoice(isLunas) {
         const stamp = document.getElementById("stampContainer");
-
         if (isLunas === true) {
           stamp.classList.add("show");
         } else {
           stamp.classList.remove("show");
         }
-
         setTimeout(() => window.print(), 100);
       }
 
